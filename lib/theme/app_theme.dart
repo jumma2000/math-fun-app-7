@@ -9,7 +9,7 @@ class AppTheme {
       seedColor: Colors.deepPurple,
     ),
     useMaterial3: true,
-    
+
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.deepPurple,
       foregroundColor: Colors.white,
@@ -22,7 +22,7 @@ class AppTheme {
         color: Colors.white,
       ),
     ),
-    
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.deepPurple,
@@ -33,15 +33,16 @@ class AppTheme {
         ),
       ),
     ),
-    
-    cardTheme: CardTheme(
+
+    // ✅ التعديل: CardTheme → CardThemeData
+    cardTheme: CardThemeData(
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
       color: Colors.white,
     ),
-    
+
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,

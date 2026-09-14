@@ -8,6 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:      # ✅ دعم اللغة العربية
+    sdk: flutter
   url_launcher: ^6.3.0
 
 dev_dependencies:
