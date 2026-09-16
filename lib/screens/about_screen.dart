@@ -48,9 +48,8 @@ class AboutScreen extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // ===== الوظيفة =====
-              Text(
-                'مطور تطبيقات Flutter',
+                            Text(
+                'مطور تطبيقات تعليمية تفاعلية',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.grey.shade700,
@@ -64,7 +63,7 @@ class AboutScreen extends StatelessWidget {
               // ===== النص التعريفي =====
               const Text(
                 '✨ أنا جمعة ضو، مطور تطبيقات شغوف بتحويل الأفكار إلى واقع رقمي ملموس.\n\n'
-                '💡 أهتم بتقديم محتوى تعليمي ملهم وتطبيقات تفاعلية ذكية، أدمج فيها أحدث التقنيات بأسلوب مبسط وممتع يلامس احتياجات المستخدمين.',
+                '💡 أهتم بتقديم محتوى تعليمي  وتطبيقات تفاعلية ذكية، أدمج فيها أحدث التقنيات بأسلوب مبسط وممتع يلامس احتياجات المستخدمين.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, height: 1.8),
               ),

@@ -49,13 +49,13 @@ Lesson lesson02 = Lesson(
   ],
 
   // ============================================================
-  // ===== الأسئلة (20 سؤال) =====
+  // ===== الأسئلة (20 سؤال - 3 خيارات) =====
   // ============================================================
   questions: [
     // ---------- المجموعة 1: خط الأعداد (4 أسئلة) ----------
     Question(
       questionText: 'على خط الأعداد، الأعداد على اليمين تكون:',
-      options: ['أصغر', 'أكبر', 'مساوية', 'لا يمكن تحديدها'],
+      options: ['أصغر', 'أكبر', 'مساوية'],
       correctAnswerIndex: 1,
       solution: 'على خط الأعداد، الأعداد على اليمين أكبر من الأعداد على اليسار.',
       operationType: 'ترتيب',
@@ -65,7 +65,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'أي عدد يقع على يمين العدد 0؟',
-      options: ['-1', '-3', '2', '-5'],
+      options: ['-1', '-3', '2'],
       correctAnswerIndex: 2,
       solution: 'العدد 2 موجب، لذلك يقع على يمين 0 على خط الأعداد.',
       operationType: 'ترتيب',
@@ -75,7 +75,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'أي عدد يقع على يسار العدد 0؟',
-      options: ['1', '-2', '3', '5'],
+      options: ['1', '-2', '3'],
       correctAnswerIndex: 1,
       solution: 'العدد -2 سالب، لذلك يقع على يسار 0 على خط الأعداد.',
       operationType: 'ترتيب',
@@ -85,7 +85,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الذي يقع بين -1 و 1 على خط الأعداد؟',
-      options: ['-2', '0', '2', '-3'],
+      options: ['-2', '0', '2'],
       correctAnswerIndex: 1,
       solution: 'العدد 0 يقع بين -1 و 1 على خط الأعداد.',
       operationType: 'ترتيب',
@@ -97,7 +97,7 @@ Lesson lesson02 = Lesson(
     // ---------- المجموعة 2: الرموز (4 أسئلة) ----------
     Question(
       questionText: 'ماذا يعني الرمز >؟',
-      options: ['أصغر من', 'أكبر من', 'يساوي', 'لا يساوي'],
+      options: ['أصغر من', 'أكبر من', 'يساوي'],
       correctAnswerIndex: 1,
       solution: 'الرمز > يعني "أكبر من".',
       operationType: 'مقارنة',
@@ -107,7 +107,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'ماذا يعني الرمز <؟',
-      options: ['أصغر من', 'أكبر من', 'يساوي', 'لا يساوي'],
+      options: ['أصغر من', 'أكبر من', 'يساوي'],
       correctAnswerIndex: 0,
       solution: 'الرمز < يعني "أصغر من".',
       operationType: 'مقارنة',
@@ -117,7 +117,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'أكمل: 5 ___ 3',
-      options: ['>', '<', '=', '≠'],
+      options: ['>', '<', '='],
       correctAnswerIndex: 0,
       solution: '5 > 3 (5 أكبر من 3).',
       operationType: 'مقارنة',
@@ -127,7 +127,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'أكمل: -2 ___ 1',
-      options: ['>', '<', '=', '≠'],
+      options: ['>', '<', '='],
       correctAnswerIndex: 1,
       solution: '-2 < 1 (-2 أصغر من 1 لأنها سالبة).',
       operationType: 'مقارنة',
@@ -139,9 +139,9 @@ Lesson lesson02 = Lesson(
     // ---------- المجموعة 3: المقارنة (4 أسئلة) ----------
     Question(
       questionText: 'أي عدد أكبر؟',
-      options: ['-5', '-2', '-8', '-10'],
+      options: ['-5', '-2', '-8'],
       correctAnswerIndex: 1,
-      solution: '-2 أكبر من -5 و -8 و -10 (الأقرب للصفر أكبر).',
+      solution: '-2 أكبر من -5 و -8 (الأقرب للصفر أكبر).',
       operationType: 'مقارنة',
       lessonId: 'lesson_2',
       hint: 'الأعداد السالبة الأقرب للصفر أكبر.',
@@ -149,9 +149,9 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'أي عدد أصغر؟',
-      options: ['3', '-1', '0', '2'],
+      options: ['3', '-1', '0'],
       correctAnswerIndex: 1,
-      solution: '-1 أصغر من 3 و 0 و 2 (الأعداد السالبة أصغر).',
+      solution: '-1 أصغر من 3 و 0 (الأعداد السالبة أصغر).',
       operationType: 'مقارنة',
       lessonId: 'lesson_2',
       hint: 'الأعداد السالبة أصغر من الموجبة والصفر.',
@@ -159,7 +159,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'هل -3 أكبر من -7؟',
-      options: ['نعم', 'لا', 'متساويان', 'لا يمكن تحديد'],
+      options: ['نعم', 'لا', 'متساويان'],
       correctAnswerIndex: 0,
       solution: 'نعم، -3 أكبر من -7 لأنها أقرب للصفر.',
       operationType: 'مقارنة',
@@ -169,7 +169,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'أي عدد أكبر: 0 أم -1؟',
-      options: ['0', '-1', 'متساويان', 'لا يمكن تحديد'],
+      options: ['0', '-1', 'متساويان'],
       correctAnswerIndex: 0,
       solution: '0 أكبر من -1 (الصفر أكبر من الأعداد السالبة).',
       operationType: 'مقارنة',
@@ -181,7 +181,7 @@ Lesson lesson02 = Lesson(
     // ---------- المجموعة 4: الترتيب التصاعدي (4 أسئلة) ----------
     Question(
       questionText: 'رتب تصاعدياً: 5, 2, 8, 1',
-      options: ['1, 2, 5, 8', '8, 5, 2, 1', '5, 2, 1, 8', '2, 5, 8, 1'],
+      options: ['1, 2, 5, 8', '8, 5, 2, 1', '5, 2, 1, 8'],
       correctAnswerIndex: 0,
       solution: 'الترتيب التصاعدي: 1, 2, 5, 8 (من الأصغر للأكبر).',
       operationType: 'ترتيب',
@@ -191,7 +191,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'رتب تصاعدياً: -3, 0, -1, 2',
-      options: ['0, -1, -3, 2', '-3, -1, 0, 2', '2, 0, -1, -3', '-1, -3, 0, 2'],
+      options: ['0, -1, -3, 2', '-3, -1, 0, 2', '2, 0, -1, -3'],
       correctAnswerIndex: 1,
       solution: 'الترتيب التصاعدي: -3, -1, 0, 2.',
       operationType: 'ترتيب',
@@ -205,7 +205,6 @@ Lesson lesson02 = Lesson(
         '4, 3, 1, -2, -5',
         '-5, -2, 1, 3, 4',
         '1, 3, 4, -2, -5',
-        '3, 1, -2, -5, 4',
       ],
       correctAnswerIndex: 1,
       solution: 'الترتيب التصاعدي: -5, -2, 1, 3, 4.',
@@ -216,7 +215,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'رتب تصاعدياً: 7, 3, 9, 1, 5',
-      options: ['1, 3, 5, 7, 9', '9, 7, 5, 3, 1', '7, 3, 9, 1, 5', '5, 7, 3, 9, 1'],
+      options: ['1, 3, 5, 7, 9', '9, 7, 5, 3, 1', '7, 3, 9, 1, 5'],
       correctAnswerIndex: 0,
       solution: 'الترتيب التصاعدي: 1, 3, 5, 7, 9.',
       operationType: 'ترتيب',
@@ -228,7 +227,7 @@ Lesson lesson02 = Lesson(
     // ---------- المجموعة 5: الترتيب التنازلي (4 أسئلة) ----------
     Question(
       questionText: 'رتب تنازلياً: 3, 7, 1, 5',
-      options: ['1, 3, 5, 7', '7, 5, 3, 1', '3, 7, 1, 5', '5, 3, 7, 1'],
+      options: ['1, 3, 5, 7', '7, 5, 3, 1', '3, 7, 1, 5'],
       correctAnswerIndex: 1,
       solution: 'الترتيب التنازلي: 7, 5, 3, 1 (من الأكبر للأصغر).',
       operationType: 'ترتيب',
@@ -238,7 +237,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'رتب تنازلياً: -1, 4, -3, 0',
-      options: ['4, 0, -1, -3', '-3, -1, 0, 4', '0, -1, 4, -3', '-1, 0, -3, 4'],
+      options: ['4, 0, -1, -3', '-3, -1, 0, 4', '0, -1, 4, -3'],
       correctAnswerIndex: 0,
       solution: 'الترتيب التنازلي: 4, 0, -1, -3.',
       operationType: 'ترتيب',
@@ -252,7 +251,6 @@ Lesson lesson02 = Lesson(
         '-5, -2, 1, 6, 8',
         '8, 6, 1, -2, -5',
         '6, 8, 1, -2, -5',
-        '-2, -5, 1, 6, 8',
       ],
       correctAnswerIndex: 1,
       solution: 'الترتيب التنازلي: 8, 6, 1, -2, -5.',
@@ -263,7 +261,7 @@ Lesson lesson02 = Lesson(
     ),
     Question(
       questionText: 'رتب تنازلياً: 2, 9, 4, 7, 0',
-      options: ['9, 7, 4, 2, 0', '0, 2, 4, 7, 9', '2, 9, 4, 7, 0', '4, 7, 2, 9, 0'],
+      options: ['9, 7, 4, 2, 0', '0, 2, 4, 7, 9', '2, 9, 4, 7, 0'],
       correctAnswerIndex: 0,
       solution: 'الترتيب التنازلي: 9, 7, 4, 2, 0.',
       operationType: 'ترتيب',

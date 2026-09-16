@@ -49,13 +49,13 @@ Lesson lesson01 = Lesson(
   ],
 
   // ============================================================
-  // ===== الأسئلة (20 سؤال) =====
+  // ===== الأسئلة (20 سؤال - 3 خيارات) =====
   // ============================================================
   questions: [
     // ---------- المجموعة 1: الأعداد الكلية (5 أسئلة) ----------
     Question(
       questionText: 'ما هو أصغر عدد كلي؟',
-      options: ['1', '0', '2', '3'],
+      options: ['1', '0', '2'],
       correctAnswerIndex: 1,
       solution: 'الأعداد الكلية تبدأ من الصفر، إذاً أصغر عدد كلي هو 0.',
       operationType: 'أعداد كلية',
@@ -65,8 +65,8 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'أي من الأعداد التالية ليس عدداً كلياً؟',
-      options: ['5', '0', '-3', '10'],
-      correctAnswerIndex: 2,
+      options: ['5', '-3', '10'],
+      correctAnswerIndex: 1,
       solution: 'العدد -3 هو عدد صحيح سالب، وليس عدداً كلياً. الأعداد الكلية تبدأ من 0.',
       operationType: 'أعداد كلية',
       lessonId: 'lesson_1',
@@ -75,7 +75,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الكلي التالي بعد 7؟',
-      options: ['6', '8', '9', '10'],
+      options: ['6', '8', '9'],
       correctAnswerIndex: 1,
       solution: 'العدد التالي بعد 7 هو 8 (7 + 1 = 8).',
       operationType: 'أعداد كلية',
@@ -85,7 +85,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'هل 0 عدد كلي؟',
-      options: ['نعم', 'لا', 'أحياناً', 'لا يمكن تحديده'],
+      options: ['نعم', 'لا', 'أحياناً'],
       correctAnswerIndex: 0,
       solution: 'نعم، 0 هو عدد كلي. الأعداد الكلية تشمل الصفر: 0, 1, 2, 3, ...',
       operationType: 'أعداد كلية',
@@ -95,7 +95,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الكلي السابق لـ 10؟',
-      options: ['9', '11', '8', '12'],
+      options: ['9', '11', '8'],
       correctAnswerIndex: 0,
       solution: 'العدد السابق لـ 10 هو 9 (10 - 1 = 9).',
       operationType: 'أعداد كلية',
@@ -107,7 +107,7 @@ Lesson lesson01 = Lesson(
     // ---------- المجموعة 2: الأعداد الزوجية (5 أسئلة) ----------
     Question(
       questionText: 'أي من الأعداد التالية زوجي؟',
-      options: ['7', '12', '15', '21'],
+      options: ['7', '12', '15'],
       correctAnswerIndex: 1,
       solution: 'العدد 12 يقبل القسمة على 2 بدون باقي (12 ÷ 2 = 6)، إذاً هو عدد زوجي.',
       operationType: 'أعداد زوجية',
@@ -117,7 +117,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الزوجي بين 8 و 12؟',
-      options: ['9', '10', '11', '12'],
+      options: ['9', '10', '11'],
       correctAnswerIndex: 1,
       solution: 'الأعداد بين 8 و 12 هي: 9, 10, 11. العدد الزوجي الوحيد بينهم هو 10.',
       operationType: 'أعداد زوجية',
@@ -127,9 +127,9 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'أي من الأعداد التالية ليس زوجياً؟',
-      options: ['24', '30', '33', '18'],
-      correctAnswerIndex: 2,
-      solution: 'العدد 33 فردي (ينتهي بـ 3). الأعداد الأخرى (24, 30, 18) كلها زوجية.',
+      options: ['24', '33', '18'],
+      correctAnswerIndex: 1,
+      solution: 'العدد 33 فردي (ينتهي بـ 3). الأعداد الأخرى (24, 18) كلها زوجية.',
       operationType: 'أعداد زوجية',
       lessonId: 'lesson_1',
       hint: 'العدد الفردي ينتهي بـ 1, 3, 5, 7, 9.',
@@ -137,7 +137,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الزوجي الأكبر من 5 وأصغر من 10؟',
-      options: ['6', '7', '9', '10'],
+      options: ['6', '7', '9'],
       correctAnswerIndex: 0,
       solution: 'الأعداد الزوجية بين 5 و 10 هي: 6, 8. الأصغر هو 6.',
       operationType: 'أعداد زوجية',
@@ -147,7 +147,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'كم عدداً زوجياً بين 1 و 10؟',
-      options: ['3', '4', '5', '6'],
+      options: ['3', '4', '5'],
       correctAnswerIndex: 1,
       solution: 'الأعداد الزوجية بين 1 و 10 هي: 2, 4, 6, 8. إذاً عددها 4.',
       operationType: 'أعداد زوجية',
@@ -159,7 +159,7 @@ Lesson lesson01 = Lesson(
     // ---------- المجموعة 3: الأعداد الفردية (4 أسئلة) ----------
     Question(
       questionText: 'أي من الأعداد التالية فردي؟',
-      options: ['8', '14', '17', '22'],
+      options: ['8', '14', '17'],
       correctAnswerIndex: 2,
       solution: 'العدد 17 فردي (ينتهي بـ 7). الأعداد الأخرى كلها زوجية.',
       operationType: 'أعداد فردية',
@@ -169,7 +169,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الفردي بين 20 و 24؟',
-      options: ['21', '22', '24', '26'],
+      options: ['21', '22', '24'],
       correctAnswerIndex: 0,
       solution: 'الأعداد بين 20 و 24 هي: 21, 22, 23. الأعداد الفردية هي: 21, 23. الإجابة هي 21.',
       operationType: 'أعداد فردية',
@@ -179,7 +179,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'أي من الأعداد التالية ليس فردياً؟',
-      options: ['9', '16', '31', '45'],
+      options: ['9', '16', '31'],
       correctAnswerIndex: 1,
       solution: 'العدد 16 زوجي (ينتهي بـ 6). الأعداد الأخرى كلها فردية.',
       operationType: 'أعداد فردية',
@@ -189,7 +189,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الفردي الأصغر من 10 وأكبر من 5؟',
-      options: ['6', '7', '8', '9'],
+      options: ['6', '7', '8'],
       correctAnswerIndex: 1,
       solution: 'الأعداد الفردية بين 5 و 10 هي: 7, 9. الأصغر هو 7.',
       operationType: 'أعداد فردية',
@@ -201,9 +201,9 @@ Lesson lesson01 = Lesson(
     // ---------- المجموعة 4: الأعداد الصحيحة (3 أسئلة) ----------
     Question(
       questionText: 'أي من الأعداد التالية صحيح سالب؟',
-      options: ['5', '0', '-3', '10'],
-      correctAnswerIndex: 2,
-      solution: 'العدد -3 سالب (يسبقه إشارة -). الأعداد الأخرى موجبة أو صفر.',
+      options: ['5', '-3', '10'],
+      correctAnswerIndex: 1,
+      solution: 'العدد -3 سالب (يسبقه إشارة -). الأعداد الأخرى موجبة.',
       operationType: 'أعداد صحيحة',
       lessonId: 'lesson_1',
       hint: 'العدد السالب يسبقه إشارة (-).',
@@ -211,8 +211,8 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'هل الصفر موجب أم سالب؟',
-      options: ['موجب', 'سالب', 'لا موجب ولا سالب', 'موجب وسالب'],
-      correctAnswerIndex: 2,
+      options: ['موجب', 'لا موجب ولا سالب', 'سالب'],
+      correctAnswerIndex: 1,
       solution: 'الصفر ليس موجباً ولا سالباً. هو عدد محايد.',
       operationType: 'أعداد صحيحة',
       lessonId: 'lesson_1',
@@ -221,7 +221,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الصحيح الأكبر من -5؟',
-      options: ['-6', '-4', '-7', '-8'],
+      options: ['-6', '-4', '-7'],
       correctAnswerIndex: 1,
       solution: 'على خط الأعداد، -4 أكبر من -5. الأعداد الأكبر من -5 هي: -4, -3, -2, ...',
       operationType: 'أعداد صحيحة',
@@ -233,9 +233,9 @@ Lesson lesson01 = Lesson(
     // ---------- المجموعة 5: خط الأعداد والمقارنة (3 أسئلة) ----------
     Question(
       questionText: 'أي من الأعداد التالية أكبر؟',
-      options: ['-3', '-1', '-5', '-7'],
+      options: ['-3', '-1', '-5'],
       correctAnswerIndex: 1,
-      solution: 'على خط الأعداد، -1 أكبر من -3 و -5 و -7.',
+      solution: 'على خط الأعداد، -1 أكبر من -3 و -5.',
       operationType: 'مقارنة',
       lessonId: 'lesson_1',
       hint: 'الأعداد السالبة الأقرب للصفر أكبر.',
@@ -243,7 +243,7 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'أكمل: 3 ___ -2',
-      options: ['>', '<', '=', '≠'],
+      options: ['>', '<', '='],
       correctAnswerIndex: 0,
       solution: '3 أكبر من -2، إذاً نكتب: 3 > -2',
       operationType: 'مقارنة',
@@ -253,9 +253,9 @@ Lesson lesson01 = Lesson(
     ),
     Question(
       questionText: 'ما هو العدد الأصغر؟',
-      options: ['0', '-1', '1', '2'],
+      options: ['0', '-1', '1'],
       correctAnswerIndex: 1,
-      solution: 'على خط الأعداد، -1 أصغر من 0 و 1 و 2.',
+      solution: 'على خط الأعداد، -1 أصغر من 0 و 1.',
       operationType: 'مقارنة',
       lessonId: 'lesson_1',
       hint: 'الأعداد السالبة أصغر من الصفر.',

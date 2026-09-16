@@ -39,7 +39,10 @@ class _QuizScreenState extends State<QuizScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.lesson.title),
+        title: Text(
+          widget.lesson.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         backgroundColor: colorScheme.primary,
         foregroundColor: Colors.white,
@@ -57,23 +60,18 @@ class _QuizScreenState extends State<QuizScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // ===== شريط التقدم =====
               _buildProgressBar(),
-
-              // ===== رأس السؤال =====
               _buildQuestionHeader(),
-
-              // ===== السؤال + الخيارات (قابل للتمرير) =====
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
+                    horizontal: 16,
+                    vertical: 6,
                   ),
                   child: Column(
                     children: [
                       _buildQuestionCard(),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 6),
                       ...List.generate(
                         _quizEngine.getCurrentQuestion().options.length,
                         (index) => _buildOptionButton(index),
@@ -82,8 +80,6 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
               ),
-
-              // ===== أزرار التنقل =====
               _buildNavigationButtons(),
             ],
           ),
@@ -98,38 +94,72 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget _buildProgressBar() {
     try {
       final theme = Theme.of(context);
+      final colorScheme = theme.colorScheme;
+      final progress = _quizEngine.getProgress();
+
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'السؤال ${_quizEngine.getCurrentQuestionNumber()} من ${_quizEngine.getTotalQuestions()}',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.quiz_outlined,
+                      color: colorScheme.primary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      'السؤال ${_quizEngine.getCurrentQuestionNumber()} من ${_quizEngine.getTotalQuestions()}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  '${(_quizEngine.getProgress() * 100).toInt()}%',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: theme.colorScheme.primary,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '${(progress * 100).toInt()}%',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.primary,
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               child: LinearProgressIndicator(
-                value: _quizEngine.getProgress(),
-                minHeight: 10,
+                value: progress,
+                minHeight: 12,
                 backgroundColor: Colors.grey.shade200,
-                color: theme.colorScheme.primary,
+                color: colorScheme.primary,
               ),
             ),
           ],
@@ -146,45 +176,82 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget _buildQuestionHeader() {
     try {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // ===== نوع العملية =====
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
               decoration: BoxDecoration(
-                color: _getOperationColor(),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                _quizEngine.getOperationType(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+                gradient: LinearGradient(
+                  colors: [
+                    _getOperationColor(),
+                    _getOperationColor().withOpacity(0.7),
+                  ],
                 ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: _getOperationColor().withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
               child: Row(
                 children: [
-                  Icon(Icons.check_circle, color: Colors.green.shade700, size: 18),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${_quizEngine.correctAnswers}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  const Icon(
+                    Icons.category,
+                    color: Colors.white,
+                    size: 16,
                   ),
-                  const SizedBox(width: 12),
-                  Icon(Icons.cancel, color: Colors.red.shade700, size: 18),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 6),
                   Text(
-                    '${_quizEngine.wrongAnswers}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    _quizEngine.getOperationType(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // ===== عداد الإجابات =====
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.grey.shade200, width: 1.5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  _buildScoreBadge(
+                    icon: Icons.check_circle,
+                    count: _quizEngine.correctAnswers,
+                    color: Colors.green.shade600,
+                  ),
+                  const SizedBox(width: 10),
+                  Container(
+                    width: 1,
+                    height: 18,
+                    color: Colors.grey.shade300,
+                  ),
+                  const SizedBox(width: 10),
+                  _buildScoreBadge(
+                    icon: Icons.cancel,
+                    count: _quizEngine.wrongAnswers,
+                    color: Colors.red.shade600,
                   ),
                 ],
               ),
@@ -197,78 +264,129 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
-  // ============================================================
-  // ===== لون العملية =====
-  // ============================================================
+  Widget _buildScoreBadge({
+    required IconData icon,
+    required int count,
+    required Color color,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, color: color, size: 18),
+        const SizedBox(width: 4),
+        Text(
+          '$count',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+
   Color _getOperationColor() {
     try {
       String type = _quizEngine.getOperationType();
-      if (type.contains('جمع')) return Colors.green.shade700;
+      if (type.contains('جمع')) return Colors.green.shade600;
       if (type.contains('طرح')) return Colors.orange.shade700;
-      if (type.contains('ضرب')) return Colors.purple.shade700;
-      if (type.contains('قسمة')) return Colors.red.shade700;
-      if (type.contains('زوجية') || type.contains('فردية')) return Colors.blue.shade700;
-      if (type.contains('مقارنة')) return Colors.teal.shade700;
-      return Colors.blue.shade700;
+      if (type.contains('ضرب')) return Colors.purple.shade600;
+      if (type.contains('قسمة')) return Colors.red.shade600;
+      if (type.contains('زوجية') || type.contains('فردية')) {
+        return Colors.blue.shade600;
+      }
+      if (type.contains('مقارنة')) return Colors.teal.shade600;
+      return Colors.blue.shade600;
     } catch (e) {
-      return Colors.blue.shade700;
+      return Colors.blue.shade600;
     }
   }
 
   // ============================================================
-  // ===== بطاقة السؤال =====
+  // ===== بطاقة السؤال (مصغّرة + بدون تلميح) =====
   // ============================================================
   Widget _buildQuestionCard() {
     try {
-      return Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+      final theme = Theme.of(context);
+      final colorScheme = theme.colorScheme;
+
+      return Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              colorScheme.primary.withOpacity(0.05),
+              Colors.white,
+            ],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: colorScheme.primary.withOpacity(0.15),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: colorScheme.primary.withOpacity(0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(24),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,   // ✅ مصغّر
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // ===== أيقونة "السؤال" =====
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      Icons.help_outline,
+                      color: colorScheme.primary,
+                      size: 16,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    'السؤال',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+
+              // ===== نص السؤال =====
               Text(
                 _quizEngine.getCurrentQuestion().questionText,
                 style: const TextStyle(
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  height: 1.5,
+                  height: 1.4,
                 ),
                 textAlign: TextAlign.center,
               ),
 
-              // التلميح
-              if (_quizEngine.getCurrentQuestion().hint != null &&
-                  !_quizEngine.hasAnswered())
-                Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: Row(
-                    children: [
-                      Icon(Icons.lightbulb_outline,
-                          color: Colors.amber.shade700, size: 20),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          'تلميح: ${_quizEngine.getCurrentQuestion().hint}',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey.shade700,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              // ❌ تم حذف التلميح
 
-              // زر عرض الحل
+              // ===== زر عرض الحل =====
               if (_quizEngine.hasAnswered())
                 Padding(
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 12),
                   child: InkWell(
                     onTap: _showSolution,
                     borderRadius: BorderRadius.circular(12),
@@ -278,22 +396,36 @@ class _QuizScreenState extends State<QuizScreen> {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.amber.shade50,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.amber.shade400,
+                            Colors.amber.shade600,
+                          ],
+                        ),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.amber.shade300),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.amber.withOpacity(0.3),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.lightbulb,
-                              color: Colors.amber.shade700, size: 22),
+                          const Icon(
+                            Icons.lightbulb,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                           const SizedBox(width: 8),
-                          Text(
+                          const Text(
                             'عرض الحل',
                             style: TextStyle(
-                              color: Colors.amber.shade900,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 15,
                             ),
                           ),
                         ],
@@ -343,89 +475,142 @@ class _QuizScreenState extends State<QuizScreen> {
       final isSelected = _quizEngine.isAnswerSelected(index);
       final isCorrect = _quizEngine.isAnswerCorrect(index);
       final hasAnswered = _quizEngine.hasAnswered();
+      final colorScheme = Theme.of(context).colorScheme;
 
       Color? buttonColor;
       Color? borderColor;
+      Color? iconColor;
+      IconData? icon;
+
       if (hasAnswered) {
         if (isCorrect) {
           buttonColor = Colors.green.shade50;
-          borderColor = Colors.green;
+          borderColor = Colors.green.shade400;
+          iconColor = Colors.green.shade600;
+          icon = Icons.check_circle;
         } else if (isSelected && !isCorrect) {
           buttonColor = Colors.red.shade50;
-          borderColor = Colors.red;
+          borderColor = Colors.red.shade400;
+          iconColor = Colors.red.shade600;
+          icon = Icons.cancel;
         } else {
           buttonColor = Colors.grey.shade50;
-          borderColor = Colors.grey.shade300;
+          borderColor = Colors.grey.shade200;
         }
       } else {
         buttonColor = Colors.white;
-        borderColor = isSelected ? Colors.blue : Colors.grey.shade300;
+        borderColor =
+            isSelected ? colorScheme.primary : Colors.grey.shade200;
       }
 
       return Padding(
-        padding: const EdgeInsets.only(bottom: 12),
-        child: ElevatedButton(
-          onPressed: hasAnswered
-              ? null
-              : () {
-                  try {
-                    setState(() {
-                      _quizEngine.selectAnswer(index);
-                    });
-                  } catch (e) {
-                    print('خطأ: $e');
-                  }
-                },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColor,
-            foregroundColor: Colors.black87,
-            elevation: hasAnswered ? 0 : 2,
-            shadowColor: Colors.black.withOpacity(0.1),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-              side: BorderSide(color: borderColor, width: 1.5),
+        padding: const EdgeInsets.only(bottom: 10),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: buttonColor,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: borderColor ?? Colors.grey.shade300,
+              width: isSelected ? 2 : 1.5,
             ),
-            minimumSize: const Size(double.infinity, 64),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          ),
-          child: Row(
-            children: [
-              // ✅ دائرة الحرف (A, B, C, D) — مكبّرة
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: isSelected
-                      ? Colors.blue.shade700
-                      : Colors.grey.shade300,
-                ),
-                child: Center(
-                  child: Text(
-                    String.fromCharCode(65 + index),
-                    style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
+            boxShadow: [
+              BoxShadow(
+                color: hasAnswered
+                    ? Colors.transparent
+                    : (isSelected
+                        ? colorScheme.primary.withOpacity(0.2)
+                        : Colors.black.withOpacity(0.05)),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Text(
-                  question.options[index],
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              if (hasAnswered && isCorrect)
-                Icon(Icons.check_circle, color: Colors.green.shade700, size: 28),
-              if (hasAnswered && isSelected && !isCorrect)
-                Icon(Icons.cancel, color: Colors.red.shade700, size: 28),
             ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: hasAnswered
+                  ? null
+                  : () {
+                      try {
+                        setState(() {
+                          _quizEngine.selectAnswer(index);
+                        });
+                      } catch (e) {
+                        print('خطأ: $e');
+                      }
+                    },
+              borderRadius: BorderRadius.circular(16),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
+                child: Row(
+                  children: [
+                    // ===== دائرة الحرف =====
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        gradient: isSelected
+                            ? LinearGradient(
+                                colors: [
+                                  colorScheme.primary,
+                                  colorScheme.primary.withOpacity(0.7),
+                                ],
+                              )
+                            : null,
+                        color: isSelected ? null : Colors.grey.shade100,
+                        shape: BoxShape.circle,
+                        boxShadow: isSelected
+                            ? [
+                                BoxShadow(
+                                  color: colorScheme.primary
+                                      .withOpacity(0.3),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      child: Center(
+                        child: Text(
+                          String.fromCharCode(65 + index),
+                          style: TextStyle(
+                            color: isSelected
+                                ? Colors.white
+                                : Colors.grey.shade700,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+
+                    // ===== نص الخيار =====
+                    Expanded(
+                      child: Text(
+                        question.options[index],
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.w500,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+
+                    // ===== أيقونة النتيجة =====
+                    if (icon != null)
+                      Icon(icon, color: iconColor, size: 30),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       );
@@ -439,15 +624,17 @@ class _QuizScreenState extends State<QuizScreen> {
   // ============================================================
   Widget _buildNavigationButtons() {
     try {
+      final colorScheme = Theme.of(context).colorScheme;
+
       return Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
+              blurRadius: 12,
+              offset: const Offset(0, -3),
             ),
           ],
         ),
@@ -462,28 +649,39 @@ class _QuizScreenState extends State<QuizScreen> {
                         _quizEngine.previousQuestion();
                       });
                     },
-              icon: const Icon(Icons.arrow_forward_ios, size: 18),
-              label: const Text('السابق'),
+              icon: const Icon(Icons.arrow_forward_ios, size: 16),
+              label: const Text(
+                'السابق',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey.shade200,
-                foregroundColor: Colors.black87,
+                backgroundColor: Colors.grey.shade100,
+                foregroundColor: Colors.grey.shade700,
+                disabledBackgroundColor: Colors.grey.shade100,
+                disabledForegroundColor: Colors.grey.shade400,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
+                  horizontal: 20,
                   vertical: 14,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
+                elevation: 0,
               ),
             ),
             if (_quizEngine.isLastQuestion)
               ElevatedButton.icon(
-                onPressed: _quizEngine.isQuizComplete ? _goToResultScreen : null,
-                icon: const Icon(Icons.flag),
-                label: const Text('إنهاء'),
+                onPressed:
+                    _quizEngine.isQuizComplete ? _goToResultScreen : null,
+                icon: const Icon(Icons.flag, size: 20),
+                label: const Text(
+                  'إنهاء',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green.shade700,
+                  backgroundColor: Colors.green.shade600,
                   foregroundColor: Colors.white,
+                  disabledBackgroundColor: Colors.green.shade200,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
                     vertical: 14,
@@ -491,6 +689,8 @@ class _QuizScreenState extends State<QuizScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  elevation: 3,
+                  shadowColor: Colors.green.withOpacity(0.4),
                 ),
               )
             else
@@ -502,11 +702,16 @@ class _QuizScreenState extends State<QuizScreen> {
                         });
                       }
                     : null,
-                icon: const Icon(Icons.arrow_back_ios, size: 18),
-                label: const Text('التالي'),
+                icon: const Icon(Icons.arrow_back_ios, size: 16),
+                label: const Text(
+                  'التالي',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue.shade700,
+                  backgroundColor: colorScheme.primary,
                   foregroundColor: Colors.white,
+                  disabledBackgroundColor: Colors.grey.shade200,
+                  disabledForegroundColor: Colors.grey.shade400,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
                     vertical: 14,
@@ -514,6 +719,8 @@ class _QuizScreenState extends State<QuizScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  elevation: 3,
+                  shadowColor: colorScheme.primary.withOpacity(0.4),
                 ),
               ),
           ],

@@ -50,13 +50,13 @@ Lesson lesson04 = Lesson(
   ],
 
   // ============================================================
-  // ===== الأسئلة (20 سؤال) =====
+  // ===== الأسئلة (20 سؤال - 3 خيارات) =====
   // ============================================================
   questions: [
     // ---------- المجموعة 1: نفس الإشارة (5 أسئلة) ----------
     Question(
       questionText: 'ما ناتج 3 × 4؟',
-      options: ['12', '-12', '7', '-7'],
+      options: ['12', '-12', '7'],
       correctAnswerIndex: 0,
       solution: '3 × 4 = 12 (موجب × موجب = موجب)',
       operationType: 'ضرب',
@@ -66,7 +66,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-3) × (-4)؟',
-      options: ['12', '-12', '7', '-7'],
+      options: ['12', '-12', '7'],
       correctAnswerIndex: 0,
       solution: '(-3) × (-4) = 12 (سالب × سالب = موجب)',
       operationType: 'ضرب',
@@ -76,7 +76,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج 5 × 6؟',
-      options: ['30', '-30', '11', '-11'],
+      options: ['30', '-30', '11'],
       correctAnswerIndex: 0,
       solution: '5 × 6 = 30',
       operationType: 'ضرب',
@@ -86,7 +86,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-5) × (-6)؟',
-      options: ['30', '-30', '11', '-11'],
+      options: ['30', '-30', '11'],
       correctAnswerIndex: 0,
       solution: '(-5) × (-6) = 30',
       operationType: 'ضرب',
@@ -96,7 +96,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-2) × (-8)؟',
-      options: ['16', '-16', '10', '-10'],
+      options: ['16', '-16', '10'],
       correctAnswerIndex: 0,
       solution: '(-2) × (-8) = 16',
       operationType: 'ضرب',
@@ -108,7 +108,7 @@ Lesson lesson04 = Lesson(
     // ---------- المجموعة 2: إشارات مختلفة (5 أسئلة) ----------
     Question(
       questionText: 'ما ناتج 3 × (-4)؟',
-      options: ['12', '-12', '7', '-7'],
+      options: ['12', '-12', '7'],
       correctAnswerIndex: 1,
       solution: '3 × (-4) = -12 (إشارات مختلفة = سالب)',
       operationType: 'ضرب',
@@ -118,7 +118,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-3) × 4؟',
-      options: ['12', '-12', '7', '-7'],
+      options: ['12', '-12', '7'],
       correctAnswerIndex: 1,
       solution: '(-3) × 4 = -12 (إشارات مختلفة = سالب)',
       operationType: 'ضرب',
@@ -128,7 +128,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج 5 × (-6)؟',
-      options: ['30', '-30', '11', '-11'],
+      options: ['30', '-30', '11'],
       correctAnswerIndex: 1,
       solution: '5 × (-6) = -30',
       operationType: 'ضرب',
@@ -138,7 +138,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-7) × 2؟',
-      options: ['14', '-14', '9', '-9'],
+      options: ['14', '-14', '9'],
       correctAnswerIndex: 1,
       solution: '(-7) × 2 = -14',
       operationType: 'ضرب',
@@ -148,7 +148,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج 8 × (-3)؟',
-      options: ['24', '-24', '11', '-11'],
+      options: ['24', '-24', '11'],
       correctAnswerIndex: 1,
       solution: '8 × (-3) = -24',
       operationType: 'ضرب',
@@ -160,7 +160,7 @@ Lesson lesson04 = Lesson(
     // ---------- المجموعة 3: خواص الضرب (5 أسئلة) ----------
     Question(
       questionText: 'ما ناتج 7 × 1؟',
-      options: ['7', '-7', '0', '1'],
+      options: ['7', '-7', '0'],
       correctAnswerIndex: 0,
       solution: '7 × 1 = 7 (أي عدد × 1 = نفس العدد)',
       operationType: 'ضرب',
@@ -170,7 +170,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج 7 × 0؟',
-      options: ['7', '-7', '0', '1'],
+      options: ['7', '-7', '0'],
       correctAnswerIndex: 2,
       solution: '7 × 0 = 0 (أي عدد × 0 = 0)',
       operationType: 'ضرب',
@@ -180,7 +180,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج 5 × (-1)؟',
-      options: ['5', '-5', '0', '1'],
+      options: ['5', '-5', '0'],
       correctAnswerIndex: 1,
       solution: '5 × (-1) = -5 (أي عدد × (-1) = معكوسه)',
       operationType: 'ضرب',
@@ -190,7 +190,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-5) × (-1)؟',
-      options: ['5', '-5', '0', '1'],
+      options: ['5', '-5', '0'],
       correctAnswerIndex: 0,
       solution: '(-5) × (-1) = 5 (سالب × سالب = موجب)',
       operationType: 'ضرب',
@@ -200,7 +200,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-1) × (-1)؟',
-      options: ['1', '-1', '0', '2'],
+      options: ['1', '-1', '0'],
       correctAnswerIndex: 0,
       solution: '(-1) × (-1) = 1 (سالب × سالب = موجب)',
       operationType: 'ضرب',
@@ -212,7 +212,7 @@ Lesson lesson04 = Lesson(
     // ---------- المجموعة 4: ضرب أكثر من عددين (5 أسئلة) ----------
     Question(
       questionText: 'ما ناتج 2 × 3 × 4؟',
-      options: ['24', '-24', '9', '-9'],
+      options: ['24', '-24', '9'],
       correctAnswerIndex: 0,
       solution: '2 × 3 = 6، ثم 6 × 4 = 24',
       operationType: 'ضرب',
@@ -222,7 +222,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-2) × 3 × 4؟',
-      options: ['24', '-24', '9', '-9'],
+      options: ['24', '-24', '9'],
       correctAnswerIndex: 1,
       solution: '(-2) × 3 = -6، ثم -6 × 4 = -24',
       operationType: 'ضرب',
@@ -232,7 +232,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-2) × (-3) × 4؟',
-      options: ['24', '-24', '9', '-9'],
+      options: ['24', '-24', '9'],
       correctAnswerIndex: 0,
       solution: '(-2) × (-3) = 6، ثم 6 × 4 = 24',
       operationType: 'ضرب',
@@ -242,7 +242,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-2) × (-3) × (-4)؟',
-      options: ['24', '-24', '9', '-9'],
+      options: ['24', '-24', '9'],
       correctAnswerIndex: 1,
       solution: '(-2) × (-3) = 6، ثم 6 × (-4) = -24',
       operationType: 'ضرب',
@@ -252,7 +252,7 @@ Lesson lesson04 = Lesson(
     ),
     Question(
       questionText: 'ما ناتج (-1) × (-1) × (-1)؟',
-      options: ['1', '-1', '0', '3'],
+      options: ['1', '-1', '0'],
       correctAnswerIndex: 1,
       solution: '(-1) × (-1) = 1، ثم 1 × (-1) = -1',
       operationType: 'ضرب',

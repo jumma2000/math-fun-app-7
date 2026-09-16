@@ -1,4 +1,5 @@
-import 'question.dart';   // ✅ أضف هذا السطر
+import 'question.dart';
+
 /// ============================================================
 /// نموذج الدرس — يمثل درساً واحداً في المنهج
 /// ============================================================
@@ -15,6 +16,9 @@ class Lesson {
   final List<Example> examples;    // الأمثلة المحلولة
   final List<Question> questions;  // الأسئلة
 
+  // ===== القفل (جديد) =====
+  final bool isLocked;             // هل الدرس مقفول؟
+
   // ===== البناء =====
   Lesson({
     required this.id,
@@ -25,15 +29,36 @@ class Lesson {
     required this.sections,
     required this.examples,
     required this.questions,
+    this.isLocked = false,         // ✅ القيمة الافتراضية: مفتوح
   });
 
   // ===== عدد الأسئلة =====
-  int get questionsCount => questions.length;
+  int get questionsCount {
+    try {
+      return questions.length;
+    } catch (e) {
+      print('خطأ في عدد الأسئلة: $e');
+      return 0;
+    }
+  }
+
+  // ===== هل الدرس مفتوح؟ =====
+  bool get isUnlocked {
+    try {
+      return !isLocked;
+    } catch (e) {
+      return true;
+    }
+  }
 
   // ===== للطباعة =====
   @override
   String toString() {
-    return 'Lesson(id: $id, title: $title, questions: $questionsCount)';
+    try {
+      return 'Lesson(id: $id, title: $title, questions: $questionsCount, isLocked: $isLocked)';
+    } catch (e) {
+      return 'Lesson(id: $id)';
+    }
   }
 }
 
@@ -48,4 +73,14 @@ class Example {
     required this.question,
     required this.solution,
   });
+
+  // ===== للطباعة =====
+  @override
+  String toString() {
+    try {
+      return 'Example(question: $question)';
+    } catch (e) {
+      return 'Example()';
+    }
+  }
 }
