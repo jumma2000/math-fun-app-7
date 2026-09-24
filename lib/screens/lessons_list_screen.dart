@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/lessons_data.dart';
 import '../models/lesson.dart';
-import 'contact_screen.dart';           // ✅ جديد
 import 'lesson_detail_screen.dart';
 
 /// ============================================================
@@ -48,33 +47,24 @@ class LessonsListScreen extends StatelessWidget {
   }
 
   // ============================================================
-  // ===== بطاقة الدرس (محسّنة مع القفل) =====
+  // ===== بطاقة الدرس =====
   // ============================================================
   Widget _buildLessonCard(BuildContext context, Lesson lesson, int index) {
     try {
       final theme = Theme.of(context);
       final colorScheme = theme.colorScheme;
 
-      // ✅ فحص إذا الدرس مقفول
-      bool isLocked = false;
-      try {
-        isLocked = isLessonLocked(lesson.id);
-      } catch (e) {
-        isLocked = false;
-      }
+      // ✅ هل هذا الدرس الأول؟ (لعرض شارة "مجاني" فقط عليه)
+      final bool isFirstLesson = index == 0;
 
       return Card(
-        elevation: isLocked ? 1 : 3,
+        elevation: 3,
         margin: const EdgeInsets.only(bottom: 16),
-        color: isLocked ? Colors.grey.shade100 : Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: isLocked
-              ? BorderSide(color: Colors.grey.shade300, width: 1.5)
-              : BorderSide.none,
         ),
         child: InkWell(
-          onTap: () => _openLesson(context, lesson, isLocked),
+          onTap: () => _openLesson(context, lesson),
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -85,26 +75,18 @@ class LessonsListScreen extends StatelessWidget {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: isLocked
-                        ? Colors.grey.shade400
-                        : colorScheme.primary,
+                    color: colorScheme.primary,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
-                    child: isLocked
-                        ? const Icon(
-                            Icons.lock,
-                            color: Colors.white,
-                            size: 28,
-                          )
-                        : Text(
-                            '${index + 1}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -119,17 +101,16 @@ class LessonsListScreen extends StatelessWidget {
                           Expanded(
                             child: Text(
                               lesson.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: isLocked
-                                    ? Colors.grey.shade700
-                                    : Colors.black87,
+                                color: Colors.black87,
                               ),
                             ),
                           ),
-                          // ✅ شارة "مجاني" أو "للطلب"
-                          if (!isLocked)
+
+                          // ✅ شارة "مجاني" — فقط للدرس الأول
+                          if (isFirstLesson)
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
@@ -147,25 +128,6 @@ class LessonsListScreen extends StatelessWidget {
                                   color: Colors.green.shade800,
                                 ),
                               ),
-                            )
-                          else
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 3,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.orange.shade100,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'للطلب',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.orange.shade800,
-                                ),
-                              ),
                             ),
                         ],
                       ),
@@ -174,9 +136,7 @@ class LessonsListScreen extends StatelessWidget {
                         lesson.description,
                         style: TextStyle(
                           fontSize: 14,
-                          color: isLocked
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade700,
+                          color: Colors.grey.shade700,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -187,18 +147,14 @@ class LessonsListScreen extends StatelessWidget {
                           Icon(
                             Icons.quiz,
                             size: 16,
-                            color: isLocked
-                                ? Colors.grey.shade500
-                                : colorScheme.primary,
+                            color: colorScheme.primary,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             '${lesson.questionsCount} سؤال',
                             style: TextStyle(
                               fontSize: 13,
-                              color: isLocked
-                                  ? Colors.grey.shade500
-                                  : colorScheme.primary,
+                              color: colorScheme.primary,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -208,13 +164,11 @@ class LessonsListScreen extends StatelessWidget {
                   ),
                 ),
 
-                // ===== أيقونة القفل/السهم =====
+                // ===== أيقونة السهم =====
                 Icon(
-                  isLocked ? Icons.lock_outline : Icons.arrow_forward_ios,
+                  Icons.arrow_forward_ios,
                   size: 20,
-                  color: isLocked
-                      ? Colors.orange.shade600
-                      : Colors.grey.shade400,
+                  color: Colors.grey.shade400,
                 ),
               ],
             ),
@@ -253,15 +207,8 @@ class LessonsListScreen extends StatelessWidget {
   // ============================================================
   // ===== فتح الدرس =====
   // ============================================================
-  void _openLesson(BuildContext context, Lesson lesson, bool isLocked) {
+  void _openLesson(BuildContext context, Lesson lesson) {
     try {
-      // ✅ إذا الدرس مقفول، اعرض رسالة
-      if (isLocked) {
-        _showLockedDialog(context);
-        return;
-      }
-
-      // ✅ إذا مفتوح، افتح الدرس
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -272,75 +219,6 @@ class LessonsListScreen extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('خطأ في فتح الدرس: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  // ============================================================
-  // ===== رسالة الدرس المقفول (معدّلة) =====
-  // ============================================================
-  void _showLockedDialog(BuildContext context) {
-    try {
-      showDialog(
-        context: context,
-        builder: (dialogContext) => AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          title: Row(
-            children: [
-              Icon(Icons.lock, color: Colors.orange.shade700, size: 28),
-              const SizedBox(width: 10),
-              const Text(
-                'الدرس مقفول',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          content: const Text(
-            '🔒 هذا الدرس غير متاح حالياً.\n\n'
-            '📚 للحصول على المنهج كامل (جميع الدروس والمواد)، '
-            'تواصل معنا عبر:\n\n'
-            '📱 واتساب: 00218911313949\n'
-            '📧 البريد: dwjmt22@gmail.com',
-            style: TextStyle(fontSize: 15, height: 1.6),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext);       // ✅ أغلق الرسالة
-                _goToContactScreen(context);        // ✅ اذهب لـ "اتصل بنا"
-              },
-              child: const Text(
-                'حسناً',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      );
-    } catch (e) {
-      print('خطأ في عرض الرسالة: $e');
-    }
-  }
-
-  // ============================================================
-  // ===== الانتقال لـ "اتصل بنا" =====
-  // ============================================================
-  void _goToContactScreen(BuildContext context) {
-    try {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const ContactScreen(),
-        ),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('خطأ في الانتقال: $e'),
           backgroundColor: Colors.red,
         ),
       );
